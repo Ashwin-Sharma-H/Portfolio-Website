@@ -1,0 +1,100 @@
+import { ContactForm } from "@/components/contact-form";
+import { ProfessionalWork } from "@/components/professional-work";
+import { ProjectShowcase } from "@/components/project-showcase";
+import { certifications, certificationsUrl, github, linkedin, professionalProjects, projects } from "@/lib/content";
+
+const capabilities = ["Generative AI", "RAG systems", "AI agents", "Machine learning", "Backend engineering", "Production AI"];
+
+export default function HomePage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  return (
+    <main id="main">
+      <section className="hero-section shell" id="top">
+        <div className="hero-copy" data-reveal>
+          <p className="eyebrow"><span className="eyebrow-line" /> AI / ML ENGINEER <span className="eyebrow-muted">· TRIVANDRUM, INDIA</span></p>
+          <h1>I build AI systems<br /><span>that make it</span><br />into the real world.</h1>
+          <p className="hero-lede">From Generative AI and retrieval systems to reliable backends and cloud-connected products, I turn complex ideas into useful software.</p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
+            <a className="button button-quiet" href="/resume/Ashwin_Sharma_Resume.pdf" target="_blank" rel="noreferrer">View résumé <span aria-hidden="true">↗</span></a>
+          </div>
+          <div className="hero-meta"><span><i className="status-dot" /> Building practical AI</span><span>GenAI · ML · Systems</span></div>
+        </div>
+        <div className="hero-visual" data-reveal="hero-visual" aria-label="Illustration of an AI system connecting product, model, data, and infrastructure layers">
+          <div className="visual-topline"><span>AI SYSTEMS / 001</span><span>DESIGN → BUILD → SHIP</span></div>
+          <div className="system-art">
+            <div className="orbit orbit-one" /><div className="orbit orbit-two" />
+            <svg className="flow-routes" viewBox="0 0 600 360" aria-hidden="true" focusable="false">
+              <path className="flow-route" d="M300 48 C258 91 263 126 300 180" />
+              <path className="flow-route flow-route-2" d="M500 180 C431 148 377 151 300 180" />
+              <path className="flow-route flow-route-3" d="M300 315 C343 271 337 225 300 180" />
+              <path className="flow-route flow-route-4" d="M100 180 C169 148 223 153 300 180" />
+              <path className="flow-route-pulse" d="M300 48 C258 91 263 126 300 180 M500 180 C431 148 377 151 300 180 M300 315 C343 271 337 225 300 180 M100 180 C169 148 223 153 300 180" />
+            </svg>
+            <div className="system-center"><span className="center-glyph">A<span>.</span></span><small>INTELLIGENCE<br />IN PRACTICE</small></div>
+            <div className="node node-model"><span className="node-icon">✳</span><b>MODEL</b><small>LLM · ML · VISION</small></div>
+            <div className="node node-data"><span className="node-icon">⌘</span><b>DATA</b><small>CONTEXT · SIGNAL</small></div>
+            <div className="node node-product"><span className="node-icon">◫</span><b>PRODUCT</b><small>API · INTERFACE</small></div>
+            <div className="node node-cloud"><span className="node-icon">⌁</span><b>RUNTIME</b><small>DEPLOY · OPERATE</small></div>
+            <span className="art-cross cross-a">+</span><span className="art-cross cross-b">+</span><span className="art-cross cross-c">+</span>
+          </div>
+          <div className="visual-caption"><span>01 — SYSTEM THINKING</span><span>Human problem → engineered solution</span></div>
+        </div>
+      </section>
+
+      <section className="capability-band" aria-label="Areas of focus">
+        <div className="shell capability-inner"><span className="band-label">FOCUS AREAS</span>{capabilities.map((item) => <span className="capability" key={item}>{item}</span>)}</div>
+      </section>
+
+      <section className="work-intro-section shell" id="work">
+        <div className="work-intro-copy" data-reveal>
+          <p className="eyebrow"><span className="eyebrow-line" /> SELECTED WORK <span className="eyebrow-muted">· 0{projects.length} CASE FILES</span></p>
+          <h2>Ideas made<br /><span>operational.</span></h2>
+          <p className="section-intro">Product and research work across Generative AI, machine learning, and software engineering. Each case file opens into the problem, decisions, and system behind it.</p>
+          <a className="button button-primary" href="#projects">Reveal selected projects <span aria-hidden="true">↓</span></a>
+        </div>
+        <div className="project-mosaic" aria-label="Project previews">
+          {projects.map((project) => <div className={`mosaic-tile mosaic-${project.slug}`} key={project.slug} aria-label={project.title}>
+            <span className="mosaic-index">{project.number} / {project.category.split(" · ")[0]}</span>
+            <div className="mosaic-art" aria-hidden="true"><i/><i/><i/><b>{project.number}</b></div>
+            <span className="mosaic-title">{project.title}</span>
+          </div>)}
+        </div>
+      </section>
+
+      <ProjectShowcase projects={projects} />
+
+      <ProfessionalWork projects={professionalProjects} />
+
+      <section className="section shell experience-section" id="experience">
+        <div className="section-heading" data-reveal>
+          <div><p className="eyebrow"><span className="eyebrow-line" /> EXPERIENCE</p><h2>Learning by<br /><span>shipping.</span></h2></div>
+          <p className="section-intro">AI/ML engineering across Generative AI, retrieval, application architecture, and the practical work of making systems reliable.</p>
+        </div>
+        <div className="experience-layout">
+          <div className="experience-timeline">
+            <article className="experience-item current-role" data-reveal="left"><span className="timeline-dot"/><div className="experience-date">AUG 2025 — PRESENT</div><div className="experience-title"><h3>Associate AI/ML Engineer</h3><span>Full-time</span></div><p className="experience-company">Gaude Business &amp; Infrastructure Solutions · Trivandrum, India</p><p>Building AI-driven content systems, RAG workflows, backend services, and full-stack product capabilities.</p></article>
+            <article className="experience-item" data-reveal="right" data-reveal-delay="1"><span className="timeline-dot"/><div className="experience-date">MAY 2025 — AUG 2025</div><div className="experience-title"><h3>AI/ML Intern</h3><span>Apprenticeship</span></div><p className="experience-company">Gaude Business &amp; Infrastructure Solutions · Trivandrum, India</p><p>Contributed to applied AI and automation work while growing from prototype thinking into production engineering.</p></article>
+          </div>
+          <aside className="toolkit-panel" id="about" data-reveal>
+            <p className="eyebrow">HOW I WORK</p><h3>Bridge the model<br />and the product.</h3><p className="toolkit-copy">My work connects AI capability to the engineering underneath it: data flow, APIs, user experience, deployment, and iteration.</p>
+            <div className="toolkit-groups"><div><span>AI / ML</span><p>Generative AI · RAG · NLP · Computer vision · Model evaluation</p></div><div><span>ENGINEERING</span><p>Python · Django · FastAPI · React · TypeScript · SQL</p></div><div><span>PLATFORM</span><p>Cloud deployment · API integration · PostgreSQL · PWA</p></div></div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="cert-section" id="certifications" data-reveal>
+        <div className="shell cert-inner">
+          <div><p className="eyebrow"><span className="eyebrow-line" /> CONTINUOUS LEARNING</p><h2>Certifications<span>.</span></h2><p className="cert-caption">Listed on LinkedIn · credential IDs omitted</p><a className="cert-link" href={certificationsUrl} target="_blank" rel="noreferrer">View certifications on LinkedIn ↗</a></div>
+          <ul className="cert-list">{certifications.map((cert, index) => <li data-reveal={index % 2 === 0 ? "left" : "right"} data-reveal-delay={(index % 4) + 1} key={cert.name}><a className="cert-entry" href={certificationsUrl} target="_blank" rel="noreferrer" aria-label={`${cert.name} on LinkedIn`}><span className="cert-icon" aria-hidden="true">✳</span><div><h3>{cert.name}</h3><p>{cert.issuer} · Issued {cert.issued}{cert.expires ? ` · Expires ${cert.expires}` : ""}</p></div></a></li>)}</ul>
+        </div>
+      </section>
+
+      <section className="contact-section shell" id="contact" data-reveal>
+        <div className="contact-heading"><p className="eyebrow"><span className="eyebrow-line" /> START A CONVERSATION</p><h2>Have a problem<br /><span>worth solving?</span></h2><p>For AI engineering, product work, or a thoughtful technical conversation, send me a note.</p><div className="contact-socials"><a href={linkedin} target="_blank" rel="noreferrer">Connect on LinkedIn ↗</a><a href={github} target="_blank" rel="noreferrer">Explore GitHub ↗</a></div></div>
+        <div className="contact-card"><div className="contact-card-heading"><span>CONTACT FORM</span><span>PRIVATE · SERVER HANDLED</span></div><ContactForm /></div>
+      </section>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projects.map((project) => ({ "@context": "https://schema.org", "@type": "CreativeWork", name: project.title, description: project.summary, url: `${siteUrl}/work/${project.slug}`, author: { "@type": "Person", name: "Ashwin Sharma" } }))) }} />
+    </main>
+  );
+}
