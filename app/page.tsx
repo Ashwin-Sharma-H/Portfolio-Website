@@ -55,8 +55,28 @@ export default function HomePage() {
         </div>
         <div className="project-mosaic" aria-label="Project previews">
           {projects.map((project) => <div className={`mosaic-tile mosaic-${project.slug}`} key={project.slug} aria-label={project.title}>
-            <span className="mosaic-index">{project.number} / {project.category.split(" · ")[0]}</span>
-            <div className="mosaic-art" aria-hidden="true"><i/><i/><i/><b>{project.number}</b></div>
+            <div className="mosaic-topline"><span className="mosaic-index">{project.number} / {project.category.split(" · ")[0]}</span><span className="mosaic-live"><i /> PROJECT FILE</span></div>
+            <div className="mosaic-art" aria-hidden="true">
+              {project.slug === "aurafit" && <div className="mosaic-aura-scene">
+                <div className="aura-panel aura-pantry"><small>YOUR PANTRY</small><b>Fresh picks</b><div className="ingredient-dots"><i /><i /><i /><i /></div></div>
+                <span className="aura-flow aura-flow-one">↗</span><div className="aura-ai"><span>✳</span><small>GEMINI</small></div><span className="aura-flow aura-flow-two">↗</span>
+                <div className="aura-panel aura-meal"><small>TODAY’S PLAN</small><b>Balanced bowl</b><span className="meal-meter"><i /></span><small>28g protein · 420 kcal</small></div>
+                <span className="aura-orbit aura-orbit-one"/><span className="aura-orbit aura-orbit-two"/>
+              </div>}
+              {project.slug === "astroledger" && <div className="mosaic-ledger-scene">
+                <div className="ledger-window"><div className="ledger-window-head"><span><i/><i/><i/></span><small>ASTROLEDGER / OVERVIEW</small><b>LOCAL</b></div>
+                  <div className="ledger-stats"><div><small>ACTIVE CLIENTS</small><b>128</b><span>+12 this month</span></div><div><small>RECORDS SECURED</small><b>2.4k</b><span>On this device</span></div></div>
+                  <svg className="ledger-chart" viewBox="0 0 360 100" preserveAspectRatio="none"><path d="M0 82 C40 74 44 48 82 58 S130 76 164 45 220 61 252 28 310 47 360 12"/><path className="ledger-chart-fill" d="M0 82 C40 74 44 48 82 58 S130 76 164 45 220 61 252 28 310 47 360 12 V100 H0Z"/></svg>
+                  <div className="ledger-chart-label"><span>RECORD ACTIVITY</span><span>LAST 30 DAYS</span></div>
+                </div><div className="ledger-phone"><span/><i/><i/><i/><b>SYNCED</b></div>
+              </div>}
+              {project.slug === "vanet-greyhole-detection" && <div className="mosaic-network-scene">
+                <svg viewBox="0 0 440 260" preserveAspectRatio="xMidYMid meet">
+                  <g className="network-links"><path d="M32 185 105 90 172 142 236 55 304 115 393 72M32 185 120 218 172 142 260 210 304 115 362 196M105 90 236 55 304 115 393 72M172 142 304 115 393 170"/></g>
+                  <g className="network-nodes"><circle cx="32" cy="185" r="7"/><circle cx="105" cy="90" r="7"/><circle cx="120" cy="218" r="7"/><circle className="node-alert" cx="172" cy="142" r="9"/><circle cx="236" cy="55" r="7"/><circle cx="260" cy="210" r="7"/><circle cx="304" cy="115" r="7"/><circle cx="393" cy="72" r="7"/><circle cx="362" cy="196" r="7"/></g>
+                </svg><span className="network-signal"><i/> ANOMALY DETECTED <b>0.94</b></span>
+              </div>}
+            </div>
             <span className="mosaic-title">{project.title}</span>
           </div>)}
         </div>

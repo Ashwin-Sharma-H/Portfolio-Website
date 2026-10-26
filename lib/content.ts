@@ -93,24 +93,50 @@ export const projects: Project[] = [
 ];
 
 export type ProfessionalProject = {
+  slug: string;
   number: string;
   title: string;
   description: string;
   contribution: string;
+  optimizationHighlights?: { title: string; detail: string }[];
   technologies: string[];
   status: string;
 };
 
 export const professionalProjects: ProfessionalProject[] = [
   {
+    slug: "generative-ai-publishing-platform",
     number: "01",
     title: "Generative AI Publishing Platform",
     description: "An end-to-end generative content and digital publishing system that brings text, media, and document output into a connected workflow.",
     contribution: "Built the platform end to end, including AI-assisted generation and publishing workflows.",
+    optimizationHighlights: [
+      {
+        title: "Reusable, layered image templates",
+        detail: "Designed book artwork as reusable layers, separating generic backgrounds from customizable content. A template image could be generated once and reused across books built from that template, reducing repeated image generation and its associated cost."
+      },
+      {
+        title: "Faster customizable covers",
+        detail: "Reduced cover generation from about 5–6 minutes to around 2 minutes by generating from the layered template, while keeping the cover customizable."
+      },
+      {
+        title: "Batch image-generation throughput",
+        detail: "Optimized batch processing for batches of roughly 15–45 images. Generation time fell to around one-third to one-fifth of the previous time, depending on the selected Google Cloud model, its availability, and region."
+      },
+      {
+        title: "Fewer full image regenerations",
+        detail: "Introduced a strict template structure and visual-resemblance matching for replacements. Faulty images could be regenerated against the established design instead of rebuilding them from scratch, significantly reducing repeat generation."
+      },
+      {
+        title: "Stronger theme and regional alignment",
+        detail: "Improved generation logic to follow the selected theme and story context more closely, including regional objects and scenery, reducing off-context results in regional stories."
+      }
+    ],
     technologies: ["Django", "React", "LLM APIs", "Image and audio generation", "PDF generation"],
     status: "Professional work · Details generalized"
   },
   {
+    slug: "employee-work-update-platform",
     number: "02",
     title: "Employee Work-Update Platform",
     description: "A web application for recording work updates, viewing weekly summaries, and exporting reports, with authenticated access and task synchronization.",
@@ -119,6 +145,7 @@ export const professionalProjects: ProfessionalProject[] = [
     status: "Professional work · Details generalized"
   },
   {
+    slug: "reusable-learning-platform-architecture",
     number: "03",
     title: "Reusable Learning Platform Architecture",
     description: "A team-built learning application was specialized into a more generic architecture designed to support learning contexts beyond company training.",
@@ -127,6 +154,7 @@ export const professionalProjects: ProfessionalProject[] = [
     status: "Professional work · Details generalized"
   },
   {
+    slug: "guided-exercise-tracking-platform",
     number: "04",
     title: "Guided Exercise Tracking Platform",
     description: "A generic web and mobile platform architecture with early evaluation of candidate pose models for movement tracking.",

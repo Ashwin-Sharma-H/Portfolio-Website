@@ -2,23 +2,49 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AnchorJumpLink } from "@/components/anchor-jump-link";
-import { projects } from "@/lib/content";
+import { professionalProjects, projects } from "@/lib/content";
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return [...projects, ...professionalProjects].map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
-  if (!project) return { title: "Project not found" };
-  return { title: project.title, description: project.summary, openGraph: { title: `${project.title} — Ashwin Sharma`, description: project.summary, type: "article" } };
+  const professionalProject = professionalProjects.find((item) => item.slug === slug);
+  const title = project?.title ?? professionalProject?.title;
+  const description = project?.summary ?? professionalProject?.description;
+  if (!title || !description) return { title: "Project not found" };
+  return { title, description, openGraph: { title: `${title} — Ashwin Sharma`, description, type: "article" } };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
-  if (!project) notFound();
+  const professionalProject = professionalProjects.find((item) => item.slug === slug);
+  if (!project && !professionalProject) notFound();
+
+  if (professionalProject) {
+    const professionalJsonLd = { "@context": "https://schema.org", "@type": "CreativeWork", name: professionalProject.title, description: professionalProject.description, author: { "@type": "Person", name: "Ashwin Sharma" }, keywords: professionalProject.technologies.join(", ") };
+    return (
+      <main id="main" className="case-page shell">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalJsonLd) }} />
+        <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><AnchorJumpLink href="/#professional-work">Professional work</AnchorJumpLink><span>/</span><span aria-current="page">{professionalProject.title}</span></nav>
+        <header className="case-hero" data-reveal>
+          <p className="eyebrow"><span className="eyebrow-line" /> PROFESSIONAL CASE STUDY {professionalProject.number}</p>
+          <h1>{professionalProject.title}<span>.</span></h1>
+          <p className="case-lede">{professionalProject.description}</p>
+          <div className="case-meta"><div><span>AREA</span><b>Professional work</b></div><div><span>CONTEXT</span><b>Team project · Generalized details</b></div><div><span>STATUS</span><b>{professionalProject.status}</b></div></div>
+        </header>
+        <section className="case-overview" data-snap><div className="case-label" data-reveal="left">01 / PROJECT OVERVIEW</div><div data-reveal="right"><h2>What the system does</h2><p>{professionalProject.description}</p></div></section>
+        <section className="professional-contribution case-overview" data-snap><div className="case-label" data-reveal="left">02 / MY CONTRIBUTION</div><div data-reveal="right"><h2>Work I contributed</h2><p>{professionalProject.contribution}</p><span className="contribution-emphasis">Individual contribution</span></div></section>
+        <section className="optimization-overview case-overview" data-snap><div className="case-label" data-reveal="left">03 / OPTIMIZATION</div><div data-reveal="right"><h2>Generation cost, time, and quality</h2>{professionalProject.optimizationHighlights?.length ? <ul className="optimization-list">{professionalProject.optimizationHighlights.map((highlight) => <li key={highlight.title}><h3>{highlight.title}</h3><p>{highlight.detail}</p></li>)}</ul> : <><p>Project-specific optimizations and their outcomes will be documented here.</p><span className="details-following">DETAILS TO FOLLOW</span></>}</div></section>
+        <section className="case-overview" data-snap><div className="case-label" data-reveal="left">04 / TOOLS &amp; TECHNOLOGY</div><div data-reveal="right"><h2>Technology choices</h2><div className="tag-list case-tags">{professionalProject.technologies.map((tag) => <span key={tag}>{tag}</span>)}</div><p className="case-note">Specific company and client details are generalized to protect confidentiality.</p></div></section>
+        <div className="case-outbound"><AnchorJumpLink className="case-back" href="/#professional-work">← Back to professional work</AnchorJumpLink></div>
+      </main>
+    );
+  }
+
   const projectJsonLd = { "@context": "https://schema.org", "@type": "CreativeWork", name: project.title, description: project.summary, author: { "@type": "Person", name: "Ashwin Sharma" }, keywords: project.stack.join(", ") };
 
   return (
