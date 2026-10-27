@@ -7,7 +7,7 @@ A responsive portfolio built with Next.js App Router, React, and TypeScript. It 
 - Next.js App Router with React Server Components by default
 - TypeScript and responsive CSS
 - Dynamic static case-study routes from `lib/content.ts`
-- Server-side contact endpoint using the Resend API
+- Contact form submissions handled by Formspree
 - Metadata, Open Graph image, JSON-LD, sitemap, and robots route
 
 ## Requirements
@@ -23,18 +23,15 @@ Copy-Item .env.example .env.local
 pnpm dev
 ```
 
-Open `http://localhost:3000`. The portfolio and case studies render without contact-service credentials. The form returns a configuration message until the email variables below are set.
+Open `http://localhost:3000`. The portfolio and case studies render without contact-service credentials. The contact form needs a Formspree form ID to submit messages.
 
 ## Environment variables
 
 | Variable | Purpose |
 | --- | --- |
-| `RESEND_API_KEY` | Server-side API key for sending contact messages through Resend |
-| `CONTACT_TO_EMAIL` | Inbox that receives portfolio messages |
-| `CONTACT_FROM_EMAIL` | Verified sender address for Resend |
 | `NEXT_PUBLIC_SITE_URL` | Canonical production URL used for metadata and sitemap |
 
-Keep real values in `.env.local` or deployment secrets. Never put service credentials in client-side code. `.env.example` contains names only.
+`.env.example` contains the environment variable names used by the app.
 
 ## Update profile information
 
@@ -70,7 +67,7 @@ GitHub is linked as a profile and repository evidence source. The site does not 
 
 ## Contact form
 
-`app/api/contact/route.ts` validates form fields, uses a hidden honeypot field, applies a basic per-process rate limit, and sends plain-text email from the server through Resend. The email credentials stay server-side. The in-memory limiter is a lightweight abuse barrier and is not shared between serverless instances; for a high-volume deployment, configure provider-level rate limiting or a shared rate-limit store. Do not test the live form with real personal information unless you are ready to receive the email.
+`components/contact-form.tsx` uses Formspree's React hook to submit messages to form `mbggoezw`. Set the notification inbox and verify it in the Formspree dashboard. The form includes Formspree's `_gotcha` honeypot field. Configure spam filtering and allowed domains in the Formspree dashboard as needed.
 
 ## Checks
 
@@ -85,7 +82,7 @@ pnpm start
 
 1. Push this project to a Git provider and import it into Vercel.
 2. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS portfolio domain.
-3. Add `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` as server-side environment variables.
-4. Deploy. Check `/sitemap.xml`, `/robots.txt`, the case-study routes, and the contact endpoint configuration after deployment.
+3. Configure and verify the recipient email for form `mbggoezw` in Formspree; no API key or Vercel environment variable is needed.
+4. Deploy. Check `/sitemap.xml`, `/robots.txt`, the case-study routes, and submit a contact form message.
 
 No private GitHub credentials or company repository content are required for deployment.

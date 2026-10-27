@@ -21,7 +21,7 @@ export const experience = [
     date: "SEP 2024 — MAR 2025",
     title: "Software Engineering Intern",
     type: "Internship",
-    company: "Center for Astrology Research & Development (CARD)",
+    company: "Center for Astrological Research & Development (CARD)",
     location: "",
     description: "Developed AstroLedger, an offline-first, cross-platform practice management application. Implemented desktop-led local sync using REST APIs, WebSockets, QR-based pairing over private Wi-Fi, and an offline mutation queue. Packaged releases for Windows and Android."
   }
