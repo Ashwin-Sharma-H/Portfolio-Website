@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ScrollReveals } from "@/components/scroll-reveals";
+import { PoisonBubbleBackground } from "@/components/poison-bubble-background";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <PoisonBubbleBackground />
         <a className="skip-link" href="#main">Skip to content</a>
         <SiteHeader />
         <ScrollReveals />

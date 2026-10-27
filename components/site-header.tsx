@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AnchorJumpLink } from "@/components/anchor-jump-link";
 
 const links = [
+  { href: "/", label: "Home" },
   { href: "/#work", label: "Work" },
   { href: "/#professional-work", label: "Practice" },
   { href: "/#experience", label: "Experience" },
@@ -18,7 +19,9 @@ export function SiteHeader() {
           <span className="wordmark-copy">Ashwin Sharma<small>AI / ML ENGINEER</small></span>
         </Link>
         <nav className="main-nav" aria-label="Main navigation">
-          {links.map((link) => <AnchorJumpLink href={link.href} key={link.href}>{link.label}</AnchorJumpLink>)}
+          {links.map((link) => link.href === "/"
+            ? <Link href="/" key={link.href}>{link.label}</Link>
+            : <AnchorJumpLink href={link.href} key={link.href}>{link.label}</AnchorJumpLink>)}
         </nav>
         <AnchorJumpLink className="availability" href="/#contact"><span aria-hidden="true" /> AI / ML · GENAI</AnchorJumpLink>
       </div>

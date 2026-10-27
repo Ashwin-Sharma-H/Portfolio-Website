@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/contact-form";
 import { ProfessionalWork } from "@/components/professional-work";
 import { ProjectShowcase } from "@/components/project-showcase";
 import { certifications, certificationsUrl, github, linkedin, professionalProjects, projects } from "@/lib/content";
+import { experience } from "@/lib/resume-content";
 
 const capabilities = ["Generative AI", "RAG systems", "AI agents", "Machine learning", "Backend engineering", "Production AI"];
 
@@ -16,7 +17,7 @@ export default function HomePage() {
           <p className="hero-lede">From Generative AI and retrieval systems to reliable backends and cloud-connected products, I turn complex ideas into useful software.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
-            <a className="button button-quiet" href="/resume/Ashwin_Sharma_Resume.pdf" target="_blank" rel="noreferrer">View résumé <span aria-hidden="true">↗</span></a>
+            <a className="button button-quiet" href="/resume">View résumé <span aria-hidden="true">↗</span></a>
           </div>
           <div className="hero-meta"><span><i className="status-dot" /> Building practical AI</span><span>GenAI · ML · Systems</span></div>
         </div>
@@ -58,10 +59,32 @@ export default function HomePage() {
             <div className="mosaic-topline"><span className="mosaic-index">{project.number} / {project.category.split(" · ")[0]}</span><span className="mosaic-live"><i /> PROJECT FILE</span></div>
             <div className="mosaic-art" aria-hidden="true">
               {project.slug === "aurafit" && <div className="mosaic-aura-scene">
-                <div className="aura-panel aura-pantry"><small>YOUR PANTRY</small><b>Fresh picks</b><div className="ingredient-dots"><i /><i /><i /><i /></div></div>
-                <span className="aura-flow aura-flow-one">↗</span><div className="aura-ai"><span>✳</span><small>GEMINI</small></div><span className="aura-flow aura-flow-two">↗</span>
-                <div className="aura-panel aura-meal"><small>TODAY’S PLAN</small><b>Balanced bowl</b><span className="meal-meter"><i /></span><small>28g protein · 420 kcal</small></div>
-                <span className="aura-orbit aura-orbit-one"/><span className="aura-orbit aura-orbit-two"/>
+                <div className="salad-topline"><span>FRESH / PERSONALIZED</span><b>01</b></div>
+                <div className="salad-orbit"><i /></div>
+                <svg className="salad-illustration" viewBox="0 0 300 230" role="img" aria-label="A fresh salad bowl with lettuce, tomatoes, cucumber, and onion">
+                  <defs>
+                    <linearGradient id="salad-bowl-glass" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#d9eee2" stopOpacity=".3"/><stop offset=".48" stopColor="#8db5a2" stopOpacity=".12"/><stop offset="1" stopColor="#26383a" stopOpacity=".82"/></linearGradient>
+                    <linearGradient id="salad-leaf-green" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#c6e879"/><stop offset=".55" stopColor="#67a557"/><stop offset="1" stopColor="#315f48"/></linearGradient>
+                    <radialGradient id="salad-tomato-red" cx=".3" cy=".25"><stop stopColor="#ffc38c"/><stop offset=".45" stopColor="#f0704d"/><stop offset="1" stopColor="#a93f3c"/></radialGradient>
+                  </defs>
+                  <ellipse cx="150" cy="199" rx="91" ry="12" fill="#000" opacity=".28"/>
+                  <g className="salad-ingredients">
+                    <path d="M60 93C52 66 77 47 103 72c4-28 35-36 52-7 10-29 43-24 45 7 26-24 53-6 38 22-28 24-145 29-178-1Z" fill="url(#salad-leaf-green)" stroke="#d5ef9a" strokeOpacity=".6" strokeWidth="2"/>
+                    <path d="M81 89c9-13 15-20 23-24m4 26c13-15 24-23 38-28m10 30c9-13 22-20 37-26m5 29c11-10 21-16 32-19" fill="none" stroke="#315f48" strokeWidth="3" strokeLinecap="round" opacity=".8"/>
+                    <circle cx="91" cy="91" r="15" fill="url(#salad-tomato-red)" stroke="#ffd0a4" strokeWidth="2"/><path d="m87 76 4 5 5-5" fill="none" stroke="#67934e" strokeWidth="3" strokeLinecap="round"/>
+                    <circle cx="198" cy="83" r="14" fill="url(#salad-tomato-red)" stroke="#ffd0a4" strokeWidth="2"/><path d="m194 69 4 5 5-5" fill="none" stroke="#67934e" strokeWidth="3" strokeLinecap="round"/>
+                    <circle cx="139" cy="82" r="16" fill="#4f8962" stroke="#c6e99b" strokeWidth="5"/><circle cx="139" cy="82" r="3" fill="#d9e9a8"/>
+                    <circle cx="172" cy="96" r="13" fill="#4f8962" stroke="#c6e99b" strokeWidth="4"/><circle cx="172" cy="96" r="2.5" fill="#d9e9a8"/>
+                    <path d="M114 103c9-10 19-10 28 0s19 10 28 0" fill="none" stroke="#e5c4e4" strokeWidth="4" strokeLinecap="round"/>
+                  </g>
+                  <path d="M48 91 72 177q78 26 156 0l24-86" fill="url(#salad-bowl-glass)" stroke="#d5e8dc" strokeOpacity=".55" strokeWidth="2"/>
+                  <ellipse cx="150" cy="90" rx="102" ry="34" fill="none" stroke="#e1eee5" strokeOpacity=".84" strokeWidth="3"/>
+                  <ellipse cx="150" cy="91" rx="95" ry="27" fill="none" stroke="#b9ddc8" strokeOpacity=".3" strokeWidth="1.5"/>
+                  <path d="m88 112 20 57" stroke="#f1fff4" strokeOpacity=".34" strokeWidth="4" strokeLinecap="round"/>
+                </svg>
+                <span className="salad-spark spark-one">✦</span><span className="salad-spark spark-two">✳</span>
+                <div className="salad-ai-chip"><span>✳</span> GEMINI MEAL PLAN</div>
+                <div className="salad-nutrition"><small>FRESHLY BALANCED</small><b>28g protein <i>·</i> 420 kcal</b></div>
               </div>}
               {project.slug === "astroledger" && <div className="mosaic-ledger-scene">
                 <div className="ledger-window"><div className="ledger-window-head"><span><i/><i/><i/></span><small>ASTROLEDGER / OVERVIEW</small><b>LOCAL</b></div>
@@ -89,12 +112,13 @@ export default function HomePage() {
       <section className="section shell experience-section" id="experience">
         <div className="section-heading" data-reveal>
           <div><p className="eyebrow"><span className="eyebrow-line" /> EXPERIENCE</p><h2>Learning by<br /><span>shipping.</span></h2></div>
-          <p className="section-intro">AI/ML engineering across Generative AI, retrieval, application architecture, and the practical work of making systems reliable.</p>
+          <p className="section-intro">AI/ML, data, and backend engineering across Generative AI, retrieval, application architecture, and reliable systems.</p>
         </div>
         <div className="experience-layout">
           <div className="experience-timeline">
-            <article className="experience-item current-role" data-reveal="left"><span className="timeline-dot"/><div className="experience-date">AUG 2025 — PRESENT</div><div className="experience-title"><h3>Associate AI/ML Engineer</h3><span>Full-time</span></div><p className="experience-company">Gaude Business &amp; Infrastructure Solutions · Trivandrum, India</p><p>Building AI-driven content systems, RAG workflows, backend services, and full-stack product capabilities.</p></article>
-            <article className="experience-item" data-reveal="right" data-reveal-delay="1"><span className="timeline-dot"/><div className="experience-date">MAY 2025 — AUG 2025</div><div className="experience-title"><h3>AI/ML Intern</h3><span>Apprenticeship</span></div><p className="experience-company">Gaude Business &amp; Infrastructure Solutions · Trivandrum, India</p><p>Contributed to applied AI and automation work while growing from prototype thinking into production engineering.</p></article>
+            {experience.map((role, index) => <article className={`experience-item${index === 0 ? " current-role" : ""}`} data-reveal={index % 2 === 0 ? "left" : "right"} data-reveal-delay={index || undefined} key={role.title}>
+              <span className="timeline-dot"/><div className="experience-date">{role.date}</div><div className="experience-title"><h3>{role.title}</h3><span>{role.type}</span></div><p className="experience-company">{role.company}{role.location ? ` · ${role.location}` : ""}</p><p>{role.description}</p>
+            </article>)}
           </div>
           <aside className="toolkit-panel" id="about" data-reveal>
             <p className="eyebrow">HOW I WORK</p><h3>Bridge the model<br />and the product.</h3><p className="toolkit-copy">My work connects AI capability to the engineering underneath it: data flow, APIs, user experience, deployment, and iteration.</p>

@@ -140,7 +140,17 @@ export const professionalProjects: ProfessionalProject[] = [
     number: "02",
     title: "Employee Work-Update Platform",
     description: "A web application for recording work updates, viewing weekly summaries, and exporting reports, with authenticated access and task synchronization.",
-    contribution: "Built the application end to end.",
+    contribution: "Designed and optimized the AI workflows for turning distributed requirements into assigned work, and improved task discovery with hybrid retrieval.",
+    optimizationHighlights: [
+      {
+        title: "Batch-orchestrated work-item generation",
+        detail: "Optimized the generation of epics, employee tasks, and user stories with batch processing. The workflow gathers requirements from multiple sources, draws on several RAG pipelines for context, then generates and routes the resulting work to the appropriate employees."
+      },
+      {
+        title: "Hybrid RAG task search",
+        detail: "Reworked the task-search architecture as a custom retrieval pipeline that combines semantic search with BM25 keyword matching. Context-aware chunking helps retrieve relevant task information while preserving useful detail for both conceptual and exact-term queries."
+      }
+    ],
     technologies: ["Django REST", "React", "PostgreSQL", "JWT", "Reporting"],
     status: "Professional work · Details generalized"
   },
@@ -149,7 +159,21 @@ export const professionalProjects: ProfessionalProject[] = [
     number: "03",
     title: "Reusable Learning Platform Architecture",
     description: "A team-built learning application was specialized into a more generic architecture designed to support learning contexts beyond company training.",
-    contribution: "Extended and generalized the architecture; the original application was developed by the team.",
+    contribution: "Extended the team-built learning application with a hybrid RAG search pipeline, a video-to-learning-content workflow, and a custom teaching agent.",
+    optimizationHighlights: [
+      {
+        title: "Hybrid RAG task search",
+        detail: "Built a custom task-search pipeline combining semantic retrieval, context-aware data chunking, and BM25 keyword search. This lets learners find material through either conceptual questions or specific terms."
+      },
+      {
+        title: "Video analysis to learning resources",
+        detail: "Designed a video-analysis workflow that extracts audio in manageable segments, analyzes the content, and produces supporting text and thumbnail imagery. It also recommends a learning path based on the material in the video."
+      },
+      {
+        title: "RAG-powered teaching agent",
+        detail: "Created a teaching agent that combines course-material retrieval with the video-analysis workflow to guide study, answer learner questions, and assess assignments and exams in the context of the learning content."
+      }
+    ],
     technologies: ["FastAPI", "React", "PostgreSQL", "Role-based workflows", "AI-assisted content"],
     status: "Professional work · Details generalized"
   },
@@ -159,6 +183,32 @@ export const professionalProjects: ProfessionalProject[] = [
     title: "Guided Exercise Tracking Platform",
     description: "A generic web and mobile platform architecture with early evaluation of candidate pose models for movement tracking.",
     contribution: "Built the generic architecture and compared suitable model options, including initial performance and feasibility testing.",
+    optimizationHighlights: [
+      {
+        title: "On-device pose analysis",
+        detail: "Integrated MediaPipe Pose Landmarker Lite into the Android patient app to analyze live camera frames locally, without sending video to the backend for inference."
+      },
+      {
+        title: "Real-time exercise tracking",
+        detail: "Processed pose landmarks on-device to track repetitions and provide posture and movement feedback during guided exercises."
+      },
+      {
+        title: "Clinician-reviewed reference analysis",
+        detail: "Built a workflow to analyze exercise reference videos, suggest repetition cycles, and let clinicians review, correct, and approve them."
+      },
+      {
+        title: "Exercise-specific movement thresholds",
+        detail: "Added per-reference movement thresholds to support exercises with smaller ranges of motion, while retaining the standard threshold for other exercises."
+      },
+      {
+        title: "Reuse of pose analysis",
+        detail: "Reused saved pose landmarks when rerunning cycle detection after a threshold change, avoiding another pose-model run."
+      },
+      {
+        title: "Per-reference threshold validation",
+        detail: "Applied the configured movement threshold when clinicians add or approve cycles, keeping detection and review criteria consistent."
+      }
+    ],
     technologies: ["Django REST", "Next.js", "Expo", "On-device pose models", "Model evaluation"],
     status: "Current project · In development"
   }
