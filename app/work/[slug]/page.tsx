@@ -22,7 +22,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
   const professionalProject = professionalProjects.find((item) => item.slug === slug);
-  if (!project && !professionalProject) notFound();
+  if (!project && !professionalProject) return notFound();
 
   if (professionalProject) {
     const professionalJsonLd = { "@context": "https://schema.org", "@type": "CreativeWork", name: professionalProject.title, description: professionalProject.description, author: { "@type": "Person", name: "Ashwin Sharma" }, keywords: professionalProject.technologies.join(", ") };
@@ -44,6 +44,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </main>
     );
   }
+
+  if (!project) return notFound();
 
   const projectJsonLd = { "@context": "https://schema.org", "@type": "CreativeWork", name: project.title, description: project.summary, author: { "@type": "Person", name: "Ashwin Sharma" }, keywords: project.stack.join(", ") };
 
