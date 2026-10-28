@@ -115,10 +115,12 @@ export default function HomePage() {
           <p className="section-intro">AI/ML, data, and backend engineering across Generative AI, retrieval, application architecture, and reliable systems.</p>
         </div>
         <div className="experience-layout">
-          <div className="experience-timeline">
-            {experience.map((role, index) => <article className={`experience-item${index === 0 ? " current-role" : ""}`} data-reveal={index % 2 === 0 ? "left" : "right"} data-reveal-delay={index || undefined} key={role.title}>
-              <span className="timeline-dot"/><div className="experience-date">{role.date}</div><div className="experience-title"><h3>{role.title}</h3><span>{role.type}</span></div><p className="experience-company">{role.company}{role.location ? ` · ${role.location}` : ""}</p><p>{role.description}</p>
-            </article>)}
+          <div className="experience-timeline" role="region" aria-label="Experience timeline" tabIndex={0}>
+            <div className="experience-timeline-content">
+              {experience.map((role, index) => <article className={`experience-item${index === 0 ? " current-role" : ""}`} data-reveal={index % 2 === 0 ? "left" : "right"} data-reveal-delay={index || undefined} key={role.title}>
+                <span className="timeline-dot"/><div className="experience-date">{role.date}</div><div className="experience-title"><h3>{role.title}</h3><span>{role.type}</span></div><p className="experience-company">{role.company}{role.location ? ` · ${role.location}` : ""}</p><p>{role.description}</p>
+              </article>)}
+            </div>
           </div>
           <aside className="toolkit-panel" id="about" data-reveal>
             <p className="eyebrow">HOW I WORK</p><h3>Bridge the model<br />and the product.</h3><p className="toolkit-copy">My work connects AI capability to the engineering underneath it: data flow, APIs, user experience, deployment, and iteration.</p>

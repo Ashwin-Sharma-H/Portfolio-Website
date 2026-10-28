@@ -22,6 +22,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       card,
       visual: card.querySelector<HTMLElement>(".project-visual"),
       content: card.querySelector<HTMLElement>(".project-content"),
+      near: null as boolean | null,
       visible: null as boolean | null,
       active: null as boolean | null,
       stack: null as number | null,
@@ -75,7 +76,9 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       card.removeAttribute("aria-hidden");
       card.removeAttribute("inert");
       card.removeAttribute("data-project-active");
+      card.classList.remove("is-near");
       panel.active = null;
+      panel.near = null;
       panel.visible = null;
       panel.stack = null;
     });
@@ -94,22 +97,33 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       panels.forEach(({ card, visual, content }, index) => {
         const offset = index - progress;
         const distance = Math.abs(offset);
+        const near = distance < 1.25;
         const visible = distance < 1.15;
         const active = distance < 0.5;
+        const panel = panels[index];
+        const wasNear = panel.near;
+
+        if (wasNear !== near) {
+          panel.near = near;
+          card.classList.toggle("is-near", near);
+        }
 
         // The two halves travel in opposite directions. The next card's
         // illustration comes from the right while its copy comes from the left.
-        if (visual) {
+        if (near && visual) {
           visual.style.transform = `translate3d(${offset * 100}%, 0, 0)`;
           visual.style.opacity = String(Math.max(0, 1 - distance));
+        } else if (!near && wasNear !== false && visual) {
+          visual.style.opacity = "0";
         }
-        if (content) {
+        if (near && content) {
           content.style.transform = `translate3d(${-offset * 100}%, 0, 0)`;
           content.style.opacity = String(Math.max(0, 1 - distance));
+        } else if (!near && wasNear !== false && content) {
+          content.style.opacity = "0";
         }
         // Avoid repeated DOM state changes while the scroll position moves
         // within the same project interval.
-        const panel = panels[index];
         if (panel.active !== active) {
           panel.active = active;
           card.style.pointerEvents = active ? "auto" : "none";

@@ -132,6 +132,12 @@ export function PoisonBubbleBackground() {
       const container = containerRef.current;
       if (cancelled || !container || viewer) return;
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const modelViewerConstructor = customElements.get("model-viewer") as (CustomElementConstructor & {
+        minimumRenderScale?: number;
+      }) | undefined;
+      if (modelViewerConstructor && "minimumRenderScale" in modelViewerConstructor) {
+        modelViewerConstructor.minimumRenderScale = 0.35;
+      }
       viewer = document.createElement("model-viewer");
       viewer.setAttribute("alt", "");
       viewer.setAttribute("aria-hidden", "true");

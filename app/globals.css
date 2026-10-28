@@ -251,6 +251,14 @@ html.motion-ready [data-reveal="right"]:not(.is-visible) { transform: translate3
   html.motion-ready [data-reveal] { opacity: 1; transform: none; transition: none; will-change: auto; }
 }
 
+/* Case study detail pages are long-form reading pages; keep their scrolling natural. */
+html:has(.case-page) { scroll-snap-type: none !important; }
+html:has(.case-page) .case-page > *,
+html:has(.case-page) .case-page [data-snap] {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+}
+
 @media (max-width: 680px) {
   .system-center { width: 104px; height: 104px; }
   .node-model { top: 0; }
@@ -361,7 +369,7 @@ html { scroll-padding-top: var(--header-height); }
   display: grid;
   align-items: center;
   padding: clamp(64px, 7vw, 96px) 0;
-  background: var(--bg);
+  background: linear-gradient(180deg, rgba(255,255,255,.016), rgba(255,255,255,.004));
 }
 .cert-inner { grid-template-columns: .72fr 1.28fr; gap: clamp(45px, 9vw, 130px); }
 .cert-inner h2 { font-size: clamp(48px, 6vw, 76px); letter-spacing: -.08em; }
@@ -648,7 +656,7 @@ html.motion-ready .project-card.is-visible:hover { transform: none; animation-pl
    when necessary and scale the decorative areas to the available height. */
 @media (max-height: 850px) and (min-width: 901px) {
   :root { --header-height: 72px; }
-  html { scroll-padding-top: var(--header-height); scroll-snap-type: y proximity; }
+  html { scroll-padding-top: var(--header-height); scroll-snap-type: y mandatory; }
   .header-inner { height: var(--header-height); }
   .hero-section { min-height: max(520px, calc(100dvh - var(--header-height) - 84px)); padding-block: 24px; gap: 4vw; }
   .hero-copy h1 { font-size: clamp(52px, 4.2vw, 68px); }
@@ -819,7 +827,15 @@ html.anchor-navigating { scroll-behavior: auto !important; scroll-snap-type: non
   min-width: 0;
   height: 100%;
   transition: none;
-  will-change: transform, opacity;
+  will-change: auto;
+}
+.project-sequence.rail-ready .project-card.is-near .project-visual,
+.project-sequence.rail-ready .project-card.is-near .project-content { will-change: transform, opacity; }
+/* The rail follows scroll position directly; long transform transitions make panels lag behind the scroll. */
+.project-sequence.rail-ready .project-card .project-visual,
+.project-sequence.rail-ready .project-card .project-content {
+  filter: none !important;
+  transition: none !important;
 }
 .project-sequence.rail-ready .project-visual { overflow: hidden; }
 .project-sequence.rail-ready .project-content {
@@ -832,9 +848,7 @@ html.anchor-navigating { scroll-behavior: auto !important; scroll-snap-type: non
 .project-steps { display: none; }
 .project-sequence.rail-ready .project-steps { position: absolute; inset: 0; display: block; pointer-events: none; }
 .project-sequence.rail-ready .project-step { position: absolute; left: 0; width: 1px; height: 1px; scroll-snap-align: start; scroll-snap-stop: always; }
-.project-sequence.is-scrolling .project-card.is-visible .pantry-visual *,
-.project-sequence.is-scrolling .project-card.is-visible .offline-visual *,
-.project-sequence.is-scrolling .project-card.is-visible .network-visual * {
+.project-sequence.is-scrolling .project-stage * {
   animation-play-state: paused !important;
 }
 /* Keep the one-screen sections sized to the visible viewport. min-height lets
@@ -1315,4 +1329,31 @@ html.anchor-navigating { scroll-behavior: auto !important; scroll-snap-type: non
   .resume-evidence-card { grid-template-columns: 25px minmax(0, 1fr); gap: 8px; padding: 15px 12px; }
   .resume-evidence-body h3 { font-size: 14px; }
   .resume-evidence-body ul { font-size: 10px; }
+}
+
+/* Keep the experience list usable inside short viewports without trapping page scroll. */
+.experience-timeline {
+  min-width: 0;
+  max-height: clamp(280px, calc(100svh - var(--header-height) - 300px), 720px);
+  overflow-y: auto;
+  padding-left: 0;
+  overscroll-behavior-y: auto;
+  scrollbar-width: none;
+}
+.experience-timeline::-webkit-scrollbar { display: none; }
+.experience-timeline:focus-visible { outline: 1px solid rgba(208,243,106,.45); outline-offset: 5px; }
+.experience-timeline::before { display: none; }
+.experience-timeline-content { position: relative; padding-left: 25px; }
+.experience-timeline-content::before {
+  position: absolute;
+  top: 7px;
+  bottom: 18px;
+  left: 5px;
+  width: 1px;
+  content: "";
+  background: var(--line-strong);
+}
+@media (min-width: 901px) {
+  .experience-timeline-content { padding-left: 36px; }
+  .experience-timeline-content::before { left: 9px; }
 }
